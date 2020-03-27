@@ -1,4 +1,4 @@
-package org.abondar.experimental.quarkusdemo.mappers;
+package org.abondar.experimental.quarkusdemo.mapper;
 
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.apache.ibatis.annotations.Mapper;

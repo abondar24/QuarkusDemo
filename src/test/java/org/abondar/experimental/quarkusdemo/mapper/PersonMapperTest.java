@@ -1,8 +1,8 @@
-package org.abondar.experimental.quarkusdemo.rest;
+package org.abondar.experimental.quarkusdemo.mapper;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.abondar.experimental.quarkusdemo.conf.TestQualifier;
-import org.abondar.experimental.quarkusdemo.mappers.PersonMapper;
+import org.abondar.experimental.quarkusdemo.mapper.PersonMapper;
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
