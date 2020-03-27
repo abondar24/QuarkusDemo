@@ -23,13 +23,13 @@ public class PersonServiceImpl implements PersonService {
     private SqlSessionFactory factory;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         sqlSession = factory.openSession();
         personMapper = sqlSession.getMapper(PersonMapper.class);
     }
 
     @PreDestroy
-    public void close(){
+    public void close() {
         sqlSession.commit();
         sqlSession.close();
     }
@@ -37,15 +37,17 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person insertPerson(Person person) {
         personMapper.insertPerson(person);
+        sqlSession.commit();
         return person;
     }
 
     @Override
     public Person updatePhone(long id, String phoneNumber) {
         var person = personMapper.getPersonById(id);
-        if (person!=null){
+        if (person != null) {
             person.setPhoneNumber(phoneNumber);
             personMapper.updatePhoneNumber(person);
+            sqlSession.commit();
             return person;
         }
 
@@ -54,13 +56,17 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findPerson(long id) {
-        return personMapper.getPersonById(id);
+        var res = personMapper.getPersonById(id);
+        sqlSession.commit();
+        return res;
     }
 
     @Override
     public boolean deletePerson(long id) {
-        if (personMapper.getPersonById(id)!=null){
+        if (personMapper.getPersonById(id) != null) {
             personMapper.deletePerson(id);
+            sqlSession.commit();
+            return true;
         }
         return false;
     }
