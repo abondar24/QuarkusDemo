@@ -1,0 +1,22 @@
+quarkus:
+  banner:
+    path: banner.txt
+
+  http:
+    port: 8020
+    test-port: 8010
+
+  datasource:
+    db-kind: postgresql
+    username: admin
+    password: admin217
+
+    jdbc:
+      url: jdbc:postgresql://localhost/quarkus_test
+      min-size: 4
+      max-size: 16
+
+  flyway:
+    migrate-at-start: true
+    validate-on-migrate: true
+    schemas: public
