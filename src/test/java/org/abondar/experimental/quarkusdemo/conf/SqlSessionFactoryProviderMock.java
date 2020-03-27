@@ -1,4 +1,4 @@
-package org.abondar.experimental.quarkusdemo.mapper;
+package org.abondar.experimental.quarkusdemo.conf;
 
 import io.quarkus.test.Mock;
 import org.abondar.experimental.quarkusdemo.conf.TestQualifier;
