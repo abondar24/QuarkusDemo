@@ -12,9 +12,18 @@ quarkus:
     password: admin217
 
     jdbc:
-      url: jdbc:postgresql://localhost/quarkus_test
+      url: jdbc:postgresql://localhost:5432/quarkus_db
       min-size: 4
       max-size: 16
+
+    test:
+      db-kind: postgresql
+      username: admin
+      password: admin217
+      jdbc:
+          url: jdbc:postgresql://localhost:5432/quarkus_test
+          min-size: 4
+          max-size: 16
 
   flyway:
     migrate-at-start: true

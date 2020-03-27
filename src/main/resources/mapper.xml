@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.abondar.experimental.quarkusdemo.mappers.PersonMapper">
+
+    <resultMap id="personMap" type="Person">
+        <id column="id" property="id"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="phone_number" property="phoneNumber"/>
+    </resultMap>
+
+    <insert id="insertPerson" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO person (first_name, last_name, phone_number)
+        VALUES (#{person.firstName},
+                #{person.lastName},
+                #{person.phoneNumber});
+    </insert>
+
+
+    <update id="updatePhoneNumber">
+        UPDATE person
+        SET phone_number   = #{person.phoneNumber}
+        WHERE id = #{person.id}
+    </update>
+
+    <select id="getPersonById" resultMap="personMap">
+        SELECT *
+        FROM person
+        WHERE id = #{id}
+    </select>
+
+    <delete id="deletePerson">
+        DELETE
+        FROM person
+        WHERE id = #{id}
+    </delete>
+</mapper>
