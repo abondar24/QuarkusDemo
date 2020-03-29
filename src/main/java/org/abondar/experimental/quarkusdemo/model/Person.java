@@ -30,6 +30,12 @@ public class Person implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Person(long id, @NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
 
     public long getId() {
         return id;
@@ -61,5 +67,15 @@ public class Person implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

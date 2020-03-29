@@ -29,3 +29,36 @@ quarkus:
     migrate-at-start: true
     validate-on-migrate: true
     schemas: public
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+
+mp:
+  messaging:
+    outgoing:
+      person-sink:
+        connector: smallrye-kafka
+        topic: persontopic
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+
+      id-sink:
+        connector: smallrye-kafka
+        topic: idtopic
+        value:
+          serializer: org.apache.kafka.common.serialization.LongSerializer
+
+    incoming:
+      persontopic:
+        connector: smallrye-kafka
+        topic: persontopic
+        value:
+           deserializer: org.abondar.experimental.quarkusdemo.model.PersonDeserializer
+
+      idtopic:
+        connector: smallrye-kafka
+        topic: idtopic
+        value:
+          deserializer: org.apache.kafka.common.serialization.LongDeserializer
+

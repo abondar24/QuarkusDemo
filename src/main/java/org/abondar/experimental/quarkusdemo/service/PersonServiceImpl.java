@@ -22,6 +22,10 @@ public class PersonServiceImpl implements PersonService {
     @DevQualifier
     private SqlSessionFactory factory;
 
+    @Inject
+    private PersonKafkaService kafkaService;
+
+
     @PostConstruct
     public void init() {
         sqlSession = factory.openSession();
@@ -30,7 +34,6 @@ public class PersonServiceImpl implements PersonService {
 
     @PreDestroy
     public void close() {
-        sqlSession.commit();
         sqlSession.close();
     }
 
@@ -38,6 +41,8 @@ public class PersonServiceImpl implements PersonService {
     public Person insertPerson(Person person) {
         personMapper.insertPerson(person);
         sqlSession.commit();
+
+        kafkaService.sendToKafka(person);
         return person;
     }
 
