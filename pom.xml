@@ -14,6 +14,7 @@
         <mybatis.version>3.5.4</mybatis.version>
         <mybatis.cdi.version>1.1.1</mybatis.cdi.version>
         <kafka.version>2.4.1</kafka.version>
+        <resteasy.version>4.5.3.Final</resteasy.version>
     </properties>
 
     <dependencyManagement>
@@ -69,7 +70,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-mutiny</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -86,6 +90,14 @@
             <artifactId>kafka-clients</artifactId>
             <version>${kafka.version}</version>
         </dependency>
+
+        <!-- to fix bug with reactive -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-context-propagation</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>io.quarkus</groupId>

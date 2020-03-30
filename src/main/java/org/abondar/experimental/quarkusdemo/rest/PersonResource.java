@@ -61,19 +61,11 @@ public class PersonResource {
     }
 
     @GET
-    @Path("/stream/ids")
+    @Path("/ids")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
     public Publisher<Long> read() {
         return idPublisher;
-    }
-
-    @GET
-    @Path("/stream")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
-    public Multi<Person> personStream() {
-        return kafkaService.getKafkaPersons();
     }
 
 
