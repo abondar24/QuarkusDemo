@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.List;
 
 @ApplicationScoped
 public class PersonServiceImpl implements PersonService {
@@ -25,6 +26,8 @@ public class PersonServiceImpl implements PersonService {
     @Inject
     private PersonKafkaService kafkaService;
 
+    @Inject
+    private PersonMongoService mongoService;
 
     @PostConstruct
     public void init() {
@@ -40,9 +43,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person insertPerson(Person person) {
         personMapper.insertPerson(person);
-        sqlSession.commit();
+
 
         kafkaService.sendToKafka(person);
+        mongoService.add(person);
+        sqlSession.commit();
         return person;
     }
 
@@ -64,6 +69,11 @@ public class PersonServiceImpl implements PersonService {
         var res = personMapper.getPersonById(id);
         sqlSession.commit();
         return res;
+    }
+
+    @Override
+    public List<Person> findAll() {
+        return mongoService.getAll();
     }
 
     @Override

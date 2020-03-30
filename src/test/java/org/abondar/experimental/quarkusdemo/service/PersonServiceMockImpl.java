@@ -5,6 +5,7 @@ import org.abondar.experimental.quarkusdemo.model.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import java.util.List;
 
 @Mock
 @ApplicationScoped
@@ -32,6 +33,11 @@ public class PersonServiceMockImpl  implements PersonService{
             return new Person();
         }
         return null;
+    }
+
+    @Override
+    public List<Person> findAll() {
+        return List.of(new Person(),new Person());
     }
 
     @Override

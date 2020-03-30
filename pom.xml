@@ -15,6 +15,7 @@
         <mybatis.cdi.version>1.1.1</mybatis.cdi.version>
         <kafka.version>2.4.1</kafka.version>
         <resteasy.version>4.5.3.Final</resteasy.version>
+        <mongo.version>3.12.2</mongo.version>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +76,11 @@
             <artifactId>quarkus-resteasy-mutiny</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-mongodb-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
@@ -98,6 +104,11 @@
             <version>${resteasy.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>${mongo.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>io.quarkus</groupId>

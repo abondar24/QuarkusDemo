@@ -82,6 +82,17 @@ public class PersonResourceTest {
     }
 
     @Test
+    public void findAllTest() throws Exception{
+        given()
+                .when()
+                .contentType(MediaType.APPLICATION_JSON)
+                .get("/person/all")
+                .then()
+                .statusCode(200)
+                .body("size()", is(2));
+    }
+
+    @Test
     public void deletePersonTest() throws Exception {
 
         given()

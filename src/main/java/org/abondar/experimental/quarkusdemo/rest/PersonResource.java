@@ -34,8 +34,6 @@ public class PersonResource {
     @Channel(ID_TOPIC)
     private Publisher<Long> idPublisher;
 
-    @Inject
-    private PersonKafkaService kafkaService;
 
     @POST
     @Path("/insert")
@@ -59,6 +57,15 @@ public class PersonResource {
 
         return res == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
     }
+
+    @GET
+    @Path("/all")
+    public Response all() {
+        var res = personService.findAll();
+
+        return res.isEmpty() ? Response.status(Response.Status.NO_CONTENT).build() : Response.ok(res).build();
+    }
+
 
     @GET
     @Path("/ids")

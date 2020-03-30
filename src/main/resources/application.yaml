@@ -30,9 +30,8 @@ quarkus:
     validate-on-migrate: true
     schemas: public
 
-kafka:
-  bootstrap:
-    servers: localhost:9092
+  mongodb:
+    connection-string:  mongodb://admin:admin217@localhost:27017
 
 mp:
   messaging:
