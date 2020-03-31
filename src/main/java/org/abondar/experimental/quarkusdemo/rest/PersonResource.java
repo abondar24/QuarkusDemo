@@ -1,9 +1,10 @@
 package org.abondar.experimental.quarkusdemo.rest;
 
-import io.smallrye.mutiny.Multi;
 import org.abondar.experimental.quarkusdemo.model.Person;
-import org.abondar.experimental.quarkusdemo.service.PersonKafkaService;
 import org.abondar.experimental.quarkusdemo.service.PersonService;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
@@ -37,6 +38,8 @@ public class PersonResource {
 
     @POST
     @Path("/insert")
+    @Operation(summary = "Creates a new person")
+    @APIResponse(description = "person object", responseCode = "200")
     public Response insertPerson(Person person) {
         var res = personService.insertPerson(person);
         return Response.ok(res).build();
@@ -44,6 +47,11 @@ public class PersonResource {
 
     @POST
     @Path("/update/{id}")
+    @Operation(summary = "Updates person's phone number")
+    @APIResponses({
+            @APIResponse(description = "person object", responseCode = "200"),
+            @APIResponse(description = "person not found", responseCode = "404")
+    })
     public Response updatePhone(@PathParam("id") long id, @QueryParam("phone") String phone) {
         var res = personService.updatePhone(id, phone);
 
@@ -52,6 +60,11 @@ public class PersonResource {
 
     @GET
     @Path("/find")
+    @Operation(summary = "Find person by id")
+    @APIResponses({
+            @APIResponse(description = "person object", responseCode = "200"),
+            @APIResponse(description = "person not found", responseCode = "404")
+    })
     public Response findPerson(@QueryParam("id") long id) {
         var res = personService.findPerson(id);
 
@@ -60,6 +73,11 @@ public class PersonResource {
 
     @GET
     @Path("/all")
+    @Operation(summary = "Find all persons")
+    @APIResponses({
+            @APIResponse(description = "person object", responseCode = "200"),
+            @APIResponse(description = "person not found", responseCode = "404")
+    })
     public Response all() {
         var res = personService.findAll();
 
@@ -71,6 +89,7 @@ public class PersonResource {
     @Path("/ids")
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Get stream of recently added ids")
     public Publisher<Long> read() {
         return idPublisher;
     }
@@ -78,6 +97,8 @@ public class PersonResource {
 
     @DELETE
     @Path("/delete")
+    @Operation(summary = "Delete person")
+    @APIResponse(description = "deletion result.", responseCode = "200")
     public Response deletePerson(@QueryParam("id") long id) {
         var res = personService.deletePerson(id);
 

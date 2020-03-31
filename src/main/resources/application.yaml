@@ -61,3 +61,6 @@ mp:
         value:
           deserializer: org.apache.kafka.common.serialization.LongDeserializer
 
+
+swagger-ui:
+  always-include: true

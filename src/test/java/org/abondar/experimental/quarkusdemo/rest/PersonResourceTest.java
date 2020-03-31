@@ -41,7 +41,7 @@ public class PersonResourceTest {
 
 
     @Test
-    public void updatePersonTest() throws Exception {
+    public void updatePersonTest() {
 
         given()
                 .when()
@@ -57,7 +57,7 @@ public class PersonResourceTest {
     }
 
     @Test
-    public void updatePersoNotFoundTest() {
+    public void updatePersonNotFoundTest() {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ public class PersonResourceTest {
     }
 
     @Test
-    public void findPersonTest() throws Exception {
+    public void findPersonTest() {
 
         given()
                 .when()
@@ -82,7 +82,7 @@ public class PersonResourceTest {
     }
 
     @Test
-    public void findAllTest() throws Exception{
+    public void findAllTest() {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,12 +93,11 @@ public class PersonResourceTest {
     }
 
     @Test
-    public void deletePersonTest() throws Exception {
+    public void deletePersonTest() {
 
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
-
                 .queryParam("id", 7)
                 .delete("/person/delete")
                 .then()

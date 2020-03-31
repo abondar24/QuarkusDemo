@@ -16,6 +16,7 @@
         <kafka.version>2.4.1</kafka.version>
         <resteasy.version>4.5.3.Final</resteasy.version>
         <mongo.version>3.12.2</mongo.version>
+        <testcontainer.version>1.13.0</testcontainer.version>
     </properties>
 
     <dependencyManagement>
@@ -66,6 +67,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
