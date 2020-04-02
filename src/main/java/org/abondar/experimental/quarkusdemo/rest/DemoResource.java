@@ -30,7 +30,6 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Application status")
     @APIResponse(description = "Application status string", responseCode = "200")
-    @PermitAll
     public String status() throws Exception {
         return mapper.writeValueAsString("quarkus app is up");
     }
@@ -40,7 +39,6 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Greets by name")
     @APIResponse(description = "Greeting", responseCode = "200")
-    @PermitAll
     public String hello(@PathParam("name") String name) throws Exception {
         return mapper.writeValueAsString(service.generateHello(name));
     }

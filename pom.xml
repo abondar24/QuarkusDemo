@@ -106,6 +106,13 @@
             <version>${kafka.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
         <!-- to fix bug with reactive -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>

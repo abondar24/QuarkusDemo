@@ -10,7 +10,6 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
-import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -41,7 +40,6 @@ public class PersonResource {
 
     @GET
     @Path("/auth")
-    @PermitAll
     @Operation(summary = "Authenticate a person")
     public Response getJWT(@QueryParam("id") long id) throws Exception {
 
