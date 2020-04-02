@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 public class PersonResourceTest {
@@ -102,6 +103,21 @@ public class PersonResourceTest {
                 .delete("/person/delete")
                 .then()
                 .statusCode(200);
+
+    }
+
+    @Test
+    public void authPersonTest() {
+
+        given()
+                .when()
+                .contentType(MediaType.APPLICATION_JSON)
+
+                .queryParam("id", 7)
+                .get("/person/auth")
+                .then()
+                .statusCode(200)
+                .body(is(notNullValue()));
 
     }
 }

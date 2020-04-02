@@ -7,6 +7,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.SseElementType;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -29,6 +30,7 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Application status")
     @APIResponse(description = "Application status string", responseCode = "200")
+    @PermitAll
     public String status() throws Exception {
         return mapper.writeValueAsString("quarkus app is up");
     }
@@ -38,6 +40,7 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Greets by name")
     @APIResponse(description = "Greeting", responseCode = "200")
+    @PermitAll
     public String hello(@PathParam("name") String name) throws Exception {
         return mapper.writeValueAsString(service.generateHello(name));
     }
@@ -48,6 +51,7 @@ public class DemoResource {
     @SseElementType(MediaType.APPLICATION_JSON)
     @Operation(summary = "Stream of values returned every 3 seconds")
     @APIResponse(description = "Generated string", responseCode = "200")
+    @PermitAll
     public Multi<String> personStream() {
         return Multi.createFrom()
                 .ticks()

@@ -30,7 +30,10 @@ public class PersonServiceMockImpl  implements PersonService{
     @Override
     public Person findPerson(long id) {
         if (id==7){
-            return new Person();
+            var per = new Person();
+            per.setFirstName("test");
+            per.setLastName("test");
+            return per;
         }
         return null;
     }

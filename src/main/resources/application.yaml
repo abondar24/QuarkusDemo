@@ -33,6 +33,12 @@ quarkus:
   mongodb:
     connection-string:  mongodb://admin:admin217@localhost:27017
 
+  swagger-ui:
+    always-include: true
+
+
+  jwt:
+    enabled: true
 mp:
   messaging:
     outgoing:
@@ -61,6 +67,10 @@ mp:
         value:
           deserializer: org.apache.kafka.common.serialization.LongDeserializer
 
+  jwt:
+    verify:
+      publickey:
+        location: publicKey.pem
+      issuer: https://quarkus.io/using-jwt-rbac
 
-swagger-ui:
-  always-include: true
+

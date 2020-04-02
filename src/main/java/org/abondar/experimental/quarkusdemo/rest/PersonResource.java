@@ -2,6 +2,7 @@ package org.abondar.experimental.quarkusdemo.rest;
 
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.abondar.experimental.quarkusdemo.service.PersonService;
+import org.abondar.experimental.quarkusdemo.service.TokenService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -9,6 +10,7 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -26,14 +28,30 @@ import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.ID_TOPIC;
 @Path("/person")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+
 public class PersonResource {
 
     @Inject
+    public TokenService tokenService;
+    @Inject
     private PersonService personService;
-
     @Inject
     @Channel(ID_TOPIC)
     private Publisher<Long> idPublisher;
+
+    @GET
+    @Path("/auth")
+    @PermitAll
+    @Operation(summary = "Authenticate a person")
+    public Response getJWT(@QueryParam("id") long id) throws Exception {
+
+        var token = tokenService.generateToken(id);
+        if (token.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(token).build();
+    }
 
 
     @POST
