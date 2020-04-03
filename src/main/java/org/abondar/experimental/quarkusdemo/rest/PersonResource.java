@@ -56,11 +56,7 @@ public class PersonResource {
     @POST
     @Path("/insert")
     @Operation(summary = "Creates a new person")
-    @APIResponses({
-            @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
-            @APIResponse(description = "invalid token", responseCode = "406")
-    })
+    @APIResponse(description = "person object", responseCode = "200")
     public Response insertPerson(Person person) {
         var res = personService.insertPerson(person);
         return Response.ok(res).build();
