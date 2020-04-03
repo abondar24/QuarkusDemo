@@ -1,5 +1,8 @@
 package org.abondar.experimental.quarkusdemo.util;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class KafkaUtil {
 
     public static final String PERSON_SINK = "person-sink";

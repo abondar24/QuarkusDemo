@@ -1,10 +1,11 @@
 package org.abondar.experimental.quarkusdemo.service;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.abondar.experimental.quarkusdemo.model.Person;
 
 import java.util.List;
 
-
+@RegisterForReflection
 public interface PersonService {
 
     Person insertPerson(Person person);

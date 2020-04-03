@@ -1,9 +1,12 @@
 package org.abondar.experimental.quarkusdemo.model;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+@RegisterForReflection
 public class Person implements Serializable {
 
     private static long serialVersionUID = -21L;
