@@ -41,7 +41,7 @@ public class TokenService {
         return getToken(key, person.get().getFirstName(), person.get().getLastName());
     }
 
-    public  boolean checkToken(String token) throws Exception{
+    public  boolean validateToken(String token) throws Exception{
 
             var key = readPrivateKey();
 
@@ -50,14 +50,11 @@ public class TokenService {
                         .setSigningKey(key)
                         .parseClaimsJws(token).getBody();
 
-
                 return claims.get(Claims.given_name.name()) != null && claims.get(Claims.family_name.name()) != null;
 
             } catch (ExpiredJwtException ex){
                 return false;
             }
-
-
     }
 
     private String getToken(PrivateKey key, String firstName, String lastName) throws Exception {

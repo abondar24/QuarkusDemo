@@ -1,7 +1,6 @@
 package org.abondar.experimental.quarkusdemo.rest;
 
 
-import io.jsonwebtoken.ExpiredJwtException;
 import org.abondar.experimental.quarkusdemo.service.TokenService;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         } else if (token!=null){
             try {
-                if (!tokenService.checkToken(token.substring(4))) {
+                if (!tokenService.validateToken(token.substring(4))) {
                     containerRequestContext
                             .abortWith(Response
                                     .status(Response.Status.NOT_ACCEPTABLE.getStatusCode(),
