@@ -55,7 +55,11 @@ public class PersonResource {
     @POST
     @Path("/insert")
     @Operation(summary = "Creates a new person")
-    @APIResponse(description = "person object", responseCode = "200")
+    @APIResponses({
+            @APIResponse(description = "person object", responseCode = "200"),
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "invalid token", responseCode = "406")
+    })
     public Response insertPerson(Person person) {
         var res = personService.insertPerson(person);
         return Response.ok(res).build();
@@ -66,7 +70,9 @@ public class PersonResource {
     @Operation(summary = "Updates person's phone number")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "person not found", responseCode = "404")
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "person not found", responseCode = "404"),
+            @APIResponse(description = "invalid token", responseCode = "406")
     })
     public Response updatePhone(@PathParam("id") long id, @QueryParam("phone") String phone) {
         var res = personService.updatePhone(id, phone);
@@ -79,7 +85,9 @@ public class PersonResource {
     @Operation(summary = "Find person by id")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "person not found", responseCode = "404")
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "person not found", responseCode = "404"),
+            @APIResponse(description = "invalid token", responseCode = "406")
     })
     public Response findPerson(@QueryParam("id") long id) {
         var res = personService.findPerson(id);
@@ -92,7 +100,9 @@ public class PersonResource {
     @Operation(summary = "Find all persons")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "person not found", responseCode = "404")
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "person not found", responseCode = "404"),
+            @APIResponse(description = "invalid token", responseCode = "406")
     })
     public Response all() {
         var res = personService.findAll();
@@ -106,6 +116,11 @@ public class PersonResource {
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @SseElementType(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get stream of recently added ids")
+    @APIResponses({
+            @APIResponse(description = "stream of ids", responseCode = "200"),
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "invalid token", responseCode = "406")
+    })
     public Publisher<Long> read() {
         return idPublisher;
     }
@@ -114,7 +129,11 @@ public class PersonResource {
     @DELETE
     @Path("/delete")
     @Operation(summary = "Delete person")
-    @APIResponse(description = "deletion result.", responseCode = "200")
+    @APIResponses({
+            @APIResponse(description = "deletion result.", responseCode = "200"),
+            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "invalid token", responseCode = "406")
+    })
     public Response deletePerson(@QueryParam("id") long id) {
         var res = personService.deletePerson(id);
 

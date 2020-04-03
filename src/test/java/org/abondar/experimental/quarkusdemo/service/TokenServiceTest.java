@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 public class TokenServiceTest {
@@ -19,5 +20,14 @@ public class TokenServiceTest {
         System.out.println(token);
 
         assertNotNull(token);
+    }
+
+    @Test
+    public void testTokenCheck() throws Exception{
+        var token = tokenService.generateToken(7);
+
+        var valid = tokenService.checkToken(token);
+
+        assertTrue(valid);
     }
 }

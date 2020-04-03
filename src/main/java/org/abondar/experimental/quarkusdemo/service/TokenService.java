@@ -1,16 +1,23 @@
 package org.abondar.experimental.quarkusdemo.service;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
 import io.smallrye.jwt.build.Jwt;
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.eclipse.microprofile.jwt.Claims;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.xml.bind.DatatypeConverter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Optional;
 
 @RequestScoped
@@ -34,12 +41,31 @@ public class TokenService {
         return getToken(key, person.get().getFirstName(), person.get().getLastName());
     }
 
+    public  boolean checkToken(String token) throws Exception{
+
+            var key = readPrivateKey();
+
+            try {
+                var claims = Jwts.parser()
+                        .setSigningKey(key)
+                        .parseClaimsJws(token).getBody();
+
+
+                return claims.get(Claims.given_name.name()) != null && claims.get(Claims.family_name.name()) != null;
+
+            } catch (ExpiredJwtException ex){
+                return false;
+            }
+
+
+    }
+
     private String getToken(PrivateKey key, String firstName, String lastName) throws Exception {
 
         var claims = Jwt.claims();
 
         claims.issuedAt(System.currentTimeMillis());
-        claims.expiresAt(EXPIRY_TIME);
+        claims.expiresAt(new Date().getTime() + EXPIRY_TIME);
         claims.claim(Claims.given_name.name(), firstName);
         claims.claim(Claims.family_name.name(), lastName);
 
@@ -51,7 +77,7 @@ public class TokenService {
         return Optional.of(person);
     }
 
-    private PrivateKey readPrivateKey() throws Exception {
+    private PrivateKey readPrivateKey() throws Exception{
         try (var is = TokenService.class.getResourceAsStream(PRIMARY_KEY_ID)) {
             var buf = new byte[4096];
             var length = is.read(buf);
@@ -60,7 +86,7 @@ public class TokenService {
     }
 
 
-    private PrivateKey decodeKey(String encKey) throws Exception {
+    private PrivateKey decodeKey(String encKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         var bytes = toBytes(encKey);
         var keySpec = new PKCS8EncodedKeySpec(bytes);
         var keyFactory = KeyFactory.getInstance("RSA");

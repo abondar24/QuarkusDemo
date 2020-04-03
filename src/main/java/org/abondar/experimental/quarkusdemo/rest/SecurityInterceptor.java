@@ -1,17 +1,13 @@
 package org.abondar.experimental.quarkusdemo.rest;
 
 
-import io.jsonwebtoken.Jwts;
-import org.eclipse.microprofile.jwt.Claims;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-
+import io.jsonwebtoken.ExpiredJwtException;
+import org.abondar.experimental.quarkusdemo.service.TokenService;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 import java.util.List;
 
@@ -22,10 +18,8 @@ public class SecurityInterceptor implements ContainerRequestFilter {
     private final String authHeaderName = "Authorization";
 
 
-    @Context
-    SecurityContext securityContext;
-
-
+    @Inject
+    private TokenService tokenService;
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws SecurityException {
@@ -34,17 +28,21 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 
         if ((!path.contains(acceptedPaths.get(0)) && !path.equals(acceptedPaths.get(1))) && token == null) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
-        } else {
-            checkToken(token.substring(4));
+        } else if (token!=null){
+            try {
+                if (!tokenService.checkToken(token.substring(4))) {
+                    containerRequestContext
+                            .abortWith(Response
+                                    .status(Response.Status.NOT_ACCEPTABLE.getStatusCode(),
+                                            "Invalid token").build());
+                }
+            } catch (Exception ex) {
+                    throw new SecurityException(ex.getMessage());
+            }
+
         }
-
-
     }
 
-    private void checkToken(String token) throws SecurityException {
-        System.out.println(token);
 
-        //TODO: parse jwt
-       // Claims claims = Jwts.parser().setSigningKey()
-    }
 }
+
