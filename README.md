@@ -1,7 +1,7 @@
 # QuarkusDemo
 
 
-##Demo features
+## Demo features
 
 - rest + jwt security
 - mybatis cdi integration
@@ -9,7 +9,7 @@
 - reactive streams
 - kafka integration
 
-##Build and run
+## Build and run
 
 ```yaml
 ./mvnw clean compile quarkus:dev
