@@ -11,18 +11,19 @@ public class Person implements Serializable {
     private long id;
 
     @NotNull
-    @Size(max=50)
+    @Size(max = 50)
     private String firstName;
 
     @NotNull
-    @Size(max=50)
+    @Size(max = 50)
     private String lastName;
 
     @NotNull
-    @Size(max=50)
+    @Size(max = 50)
     private String phoneNumber;
 
-    public Person(){}
+    public Person() {
+    }
 
     public Person(@NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
         this.firstName = firstName;

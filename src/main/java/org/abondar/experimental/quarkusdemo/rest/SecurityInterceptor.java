@@ -27,7 +27,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 
         if ((!path.contains(acceptedPaths.get(0)) && !path.equals(acceptedPaths.get(1))) && token == null) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
-        } else if (token!=null){
+        } else if (token != null) {
             try {
                 if (!tokenService.validateToken(token.substring(4))) {
                     containerRequestContext
@@ -36,7 +36,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
                                             "Invalid token").build());
                 }
             } catch (Exception ex) {
-                    throw new SecurityException(ex.getMessage());
+                throw new SecurityException(ex.getMessage());
             }
 
         }

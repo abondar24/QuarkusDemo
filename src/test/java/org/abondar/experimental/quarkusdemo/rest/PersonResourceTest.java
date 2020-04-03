@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
 import org.abondar.experimental.quarkusdemo.model.Person;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,7 @@ public class PersonResourceTest {
     private Header authHeader;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         var token = given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
@@ -34,7 +33,7 @@ public class PersonResourceTest {
                 .get("/person/auth")
                 .asString();
 
-        authHeader= new Header("Authorization","JWT "+token);
+        authHeader = new Header("Authorization", "JWT " + token);
 
     }
 

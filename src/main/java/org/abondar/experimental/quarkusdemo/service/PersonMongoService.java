@@ -1,7 +1,6 @@
 package org.abondar.experimental.quarkusdemo.service;
 
 
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.abondar.experimental.quarkusdemo.model.Person;
@@ -19,16 +18,16 @@ public class PersonMongoService {
     private MongoClient client;
 
 
-    public void add(Person person){
+    public void add(Person person) {
         var doc = new Document()
-                .append("firstName",person.getFirstName())
-                .append("lastName",person.getLastName())
-                .append("phoneNumber",person.getPhoneNumber());
+                .append("firstName", person.getFirstName())
+                .append("lastName", person.getLastName())
+                .append("phoneNumber", person.getPhoneNumber());
 
         getCollection().insertOne(doc);
     }
 
-    public List<Person> getAll(){
+    public List<Person> getAll() {
         List<Person> res = new ArrayList<>();
 
         try (var cursor = getCollection().find().iterator()) {
@@ -44,8 +43,7 @@ public class PersonMongoService {
     }
 
 
-
-    private MongoCollection<Document> getCollection(){
+    private MongoCollection<Document> getCollection() {
         return client.getDatabase("person").getCollection("person");
     }
 }

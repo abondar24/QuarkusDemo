@@ -15,7 +15,7 @@ public class TokenServiceTest {
     private TokenService tokenService;
 
     @Test
-    public void testTokenGeneration() throws Exception{
+    public void testTokenGeneration() throws Exception {
         var token = tokenService.generateToken(7);
         System.out.println(token);
 
@@ -23,7 +23,7 @@ public class TokenServiceTest {
     }
 
     @Test
-    public void testTokenCheck() throws Exception{
+    public void testTokenCheck() throws Exception {
         var token = tokenService.generateToken(7);
 
         var valid = tokenService.validateToken(token);

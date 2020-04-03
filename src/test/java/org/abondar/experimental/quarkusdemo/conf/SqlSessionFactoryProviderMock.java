@@ -1,7 +1,6 @@
 package org.abondar.experimental.quarkusdemo.conf;
 
 import io.quarkus.test.Mock;
-import org.abondar.experimental.quarkusdemo.conf.TestQualifier;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

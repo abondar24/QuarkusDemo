@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-
 import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.ID_SINK;
 import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.PERSON_SINK;
 import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.PERSON_TOPIC;

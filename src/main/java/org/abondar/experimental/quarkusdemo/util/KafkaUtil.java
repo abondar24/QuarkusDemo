@@ -10,5 +10,6 @@ public class KafkaUtil {
 
     public static final String ID_TOPIC = "idtopic";
 
-    private KafkaUtil(){}
+    private KafkaUtil() {
+    }
 }

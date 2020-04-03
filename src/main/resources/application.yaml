@@ -37,7 +37,7 @@ quarkus:
     always-include: true
 
 
-  jwt:
+  smallrye-jwt:
     enabled: true
 mp:
   messaging:

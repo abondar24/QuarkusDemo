@@ -10,6 +10,7 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,7 +28,7 @@ import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.ID_TOPIC;
 @Path("/person")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-
+@RequestScoped
 public class PersonResource {
 
     @Inject

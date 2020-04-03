@@ -21,16 +21,16 @@ public class PersonServiceTest {
     private PersonService personService;
 
     @Test
-    public void testService(){
-        var person = new Person("Alex","Bondar","0000000");
+    public void testService() {
+        var person = new Person("Alex", "Bondar", "0000000");
         var res = personService.insertPerson(person);
-        assertEquals(person.getFirstName(),res.getFirstName());
+        assertEquals(person.getFirstName(), res.getFirstName());
 
         var phone = "0000";
-        res = personService.updatePhone(7,phone);
-        assertEquals(phone,res.getPhoneNumber());
+        res = personService.updatePhone(7, phone);
+        assertEquals(phone, res.getPhoneNumber());
 
-        res = personService.updatePhone(8,phone);
+        res = personService.updatePhone(8, phone);
         assertNull(res);
 
         res = personService.findPerson(8);

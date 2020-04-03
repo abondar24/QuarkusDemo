@@ -10,7 +10,7 @@ import java.util.List;
 @Mock
 @ApplicationScoped
 @Named("mockService")
-public class PersonServiceMockImpl  implements PersonService{
+public class PersonServiceMockImpl implements PersonService {
     @Override
     public Person insertPerson(Person person) {
         return person;
@@ -18,8 +18,8 @@ public class PersonServiceMockImpl  implements PersonService{
 
     @Override
     public Person updatePhone(long id, String phoneNumber) {
-       var person = new Person();
-        if (findPerson(id)!=null){
+        var person = new Person();
+        if (findPerson(id) != null) {
             person.setPhoneNumber(phoneNumber);
             return person;
         }
@@ -29,7 +29,7 @@ public class PersonServiceMockImpl  implements PersonService{
 
     @Override
     public Person findPerson(long id) {
-        if (id==7){
+        if (id == 7) {
             var per = new Person();
             per.setFirstName("test");
             per.setLastName("test");
@@ -40,7 +40,7 @@ public class PersonServiceMockImpl  implements PersonService{
 
     @Override
     public List<Person> findAll() {
-        return List.of(new Person(),new Person());
+        return List.of(new Person(), new Person());
     }
 
     @Override
