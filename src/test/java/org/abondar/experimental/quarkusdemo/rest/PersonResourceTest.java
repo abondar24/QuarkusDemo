@@ -2,7 +2,10 @@ package org.abondar.experimental.quarkusdemo.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.Header;
 import org.abondar.experimental.quarkusdemo.model.Person;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
@@ -19,6 +22,22 @@ public class PersonResourceTest {
     @Inject
     private ObjectMapper mapper;
 
+    private Header authHeader;
+
+    @BeforeEach
+    public void setUp(){
+        var token = given()
+                .when()
+                .contentType(MediaType.APPLICATION_JSON)
+
+                .queryParam("id", 7)
+                .get("/person/auth")
+                .asString();
+
+        authHeader= new Header("Authorization","JWT "+token);
+
+    }
+
     @Test
     public void insertPersonTest() throws Exception {
         var person = new Person();
@@ -29,6 +48,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(authHeader)
                 .body(mapper.writeValueAsString(person))
                 .post("/person/insert")
                 .then()
@@ -47,7 +67,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
-
+                .header(authHeader)
                 .queryParam("phone", "0000")
                 .post("/person/update/{id}", 7)
                 .then()
@@ -62,6 +82,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(authHeader)
                 .queryParam("phone", "0000")
                 .post("/person/update/{id}", 8)
                 .then()
@@ -74,7 +95,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
-
+                .header(authHeader)
                 .queryParam("id", 7)
                 .get("/person/find")
                 .then()
@@ -87,6 +108,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(authHeader)
                 .get("/person/all")
                 .then()
                 .statusCode(200)
@@ -99,6 +121,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
+                .header(authHeader)
                 .queryParam("id", 7)
                 .delete("/person/delete")
                 .then()
@@ -112,7 +135,7 @@ public class PersonResourceTest {
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
-
+                .header(authHeader)
                 .queryParam("id", 7)
                 .get("/person/auth")
                 .then()

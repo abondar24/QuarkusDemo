@@ -16,7 +16,7 @@ public class DemoResourceTest {
     private ObjectMapper mapper;
 
     @Test
-    public void testStatus() throws Exception{
+    public void testStatus() throws Exception {
 
         String res = mapper.writeValueAsString("quarkus app is up");
         given()
@@ -29,12 +29,12 @@ public class DemoResourceTest {
     }
 
     @Test
-    public void testHello() throws Exception{
+    public void testHello() throws Exception {
 
         String res = mapper.writeValueAsString("Hello Alex");
         given()
                 .when()
-                .get("/demo/hello/{name}","Alex")
+                .get("/demo/hello/{name}", "Alex")
                 .then()
                 .statusCode(200)
                 .body(is(res));
