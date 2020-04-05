@@ -32,8 +32,8 @@ POST http://localhost:8020/job/add
 Body:
 ```yaml
 {
-	"id":101,
-	"jobName":"Drink"
+"id":101,
+"jobName":"Drink"
 }
 ```
 
