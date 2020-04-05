@@ -1,4 +1,4 @@
-package org.abondar.experimental.quarkusdemo.rest;
+package org.abondar.experimental.quarkusdemo.rest.resource;
 
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.abondar.experimental.quarkusdemo.service.PersonService;

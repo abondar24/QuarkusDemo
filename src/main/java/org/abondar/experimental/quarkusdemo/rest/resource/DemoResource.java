@@ -1,4 +1,4 @@
-package org.abondar.experimental.quarkusdemo.rest;
+package org.abondar.experimental.quarkusdemo.rest.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.smallrye.mutiny.Multi;

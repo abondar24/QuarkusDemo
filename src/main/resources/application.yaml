@@ -73,4 +73,6 @@ mp:
         location: publicKey.pem
       issuer: https://quarkus.io/using-jwt-rbac
 
-
+camel:
+  context:
+    name: quarkus-demo-context

@@ -8,6 +8,7 @@
 - mongodb integration
 - reactive streams
 - kafka integration
+- camel integration
 
 ## Build and run
 
@@ -23,4 +24,18 @@ java -jar <path-to-jar>/qd-0.0.1.jar
 
 Server is running on port 8020;
 SwaggerUI: http://localhost:8020/swagger-ui
+
+### Camel endpoints
+
+POST http://localhost:8020/job/add
+
+Body:
+```yaml
+{
+	"id":101,
+	"jobName":"Drink"
+}
+```
+
+GET http://localhost:8020/job/find
 

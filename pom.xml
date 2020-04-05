@@ -17,6 +17,8 @@
         <resteasy.version>4.5.3.Final</resteasy.version>
         <mongo.version>3.12.2</mongo.version>
         <testcontainer.version>1.13.0</testcontainer.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <camel.quarkus.version>1.0.0-M5</camel.quarkus.version>
     </properties>
 
     <dependencyManagement>
@@ -106,12 +108,27 @@
             <version>${kafka.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>${jjwt.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-platform-http</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jackson</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+
 
         <!-- to fix bug with reactive -->
         <dependency>
