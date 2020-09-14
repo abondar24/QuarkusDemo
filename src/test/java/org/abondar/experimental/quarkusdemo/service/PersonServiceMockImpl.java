@@ -17,11 +17,11 @@ public class PersonServiceMockImpl implements PersonService {
     }
 
     @Override
-    public Person updatePhone(long id, String phoneNumber) {
-        var person = new Person();
+    public Person updatePhone(long id, Person person) {
+        var pers = new Person();
         if (findPerson(id) != null) {
-            person.setPhoneNumber(phoneNumber);
-            return person;
+            pers.setPhoneNumber(person.getPhoneNumber());
+            return pers;
         }
 
         return null;

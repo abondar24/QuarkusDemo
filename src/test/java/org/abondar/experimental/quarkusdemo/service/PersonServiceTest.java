@@ -27,10 +27,11 @@ public class PersonServiceTest {
         assertEquals(person.getFirstName(), res.getFirstName());
 
         var phone = "0000";
-        res = personService.updatePhone(7, phone);
+        person.setPhoneNumber(phone);
+        res = personService.updatePhone(7, person);
         assertEquals(phone, res.getPhoneNumber());
 
-        res = personService.updatePhone(8, phone);
+        res = personService.updatePhone(8, person);
         assertNull(res);
 
         res = personService.findPerson(8);

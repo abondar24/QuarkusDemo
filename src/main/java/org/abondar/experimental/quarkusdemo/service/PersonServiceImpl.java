@@ -52,10 +52,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person updatePhone(long id, String phoneNumber) {
-        var person = personMapper.getPersonById(id);
-        if (person != null) {
-            person.setPhoneNumber(phoneNumber);
+    public Person updatePhone(long id, Person person) {
+        var pers = personMapper.getPersonById(id);
+        if (pers != null) {
+            pers.setPhoneNumber(person.getPhoneNumber());
             personMapper.updatePhoneNumber(person);
             sqlSession.commit();
             return person;

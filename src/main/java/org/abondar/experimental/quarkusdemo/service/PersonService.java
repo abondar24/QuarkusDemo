@@ -9,7 +9,7 @@ public interface PersonService {
 
     Person insertPerson(Person person);
 
-    Person updatePhone(long id, String phoneNumber);
+    Person updatePhone(long id, Person person);
 
     Person findPerson(long id);
 

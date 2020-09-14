@@ -48,7 +48,7 @@ public class PersonResourceTest {
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(mapper.writeValueAsString(person))
-                .post("/person/insert")
+                .post("/person")
                 .then()
                 .statusCode(200)
                 .body("id", is(0))
@@ -61,13 +61,15 @@ public class PersonResourceTest {
 
     @Test
     public void updatePersonTest() {
+        var person = new Person();
+        person.setPhoneNumber("0000");
 
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
-                .queryParam("phone", "0000")
-                .post("/person/update/{id}", 7)
+                .body(person)
+                .put("/person/{id}/phone", 7)
                 .then()
                 .statusCode(200)
                 .body("phoneNumber", is("0000"));
@@ -77,12 +79,15 @@ public class PersonResourceTest {
 
     @Test
     public void updatePersonNotFoundTest() {
+        var person = new Person();
+        person.setPhoneNumber("phone");
+
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
-                .queryParam("phone", "0000")
-                .post("/person/update/{id}", 8)
+                .body(person)
+                .put("/person/{id}/phone", 8)
                 .then()
                 .statusCode(404);
     }
@@ -94,8 +99,8 @@ public class PersonResourceTest {
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
-                .queryParam("id", 7)
-                .get("/person/find")
+                .pathParam("id", 7)
+                .get("/person/{id}")
                 .then()
                 .statusCode(200);
 
@@ -107,7 +112,7 @@ public class PersonResourceTest {
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
-                .get("/person/all")
+                .get("/person")
                 .then()
                 .statusCode(200)
                 .body("size()", is(2));

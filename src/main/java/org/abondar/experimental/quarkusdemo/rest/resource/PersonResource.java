@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,7 +55,6 @@ public class PersonResource {
 
 
     @POST
-    @Path("/insert")
     @Operation(summary = "Creates a new person")
     @APIResponse(description = "person object", responseCode = "200")
     public Response insertPerson(Person person) {
@@ -62,8 +62,8 @@ public class PersonResource {
         return Response.ok(res).build();
     }
 
-    @POST
-    @Path("/update/{id}")
+    @PUT
+    @Path("/{id}/phone")
     @Operation(summary = "Updates person's phone number")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
@@ -71,14 +71,14 @@ public class PersonResource {
             @APIResponse(description = "person not found", responseCode = "404"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
-    public Response updatePhone(@PathParam("id") long id, @QueryParam("phone") String phone) {
-        var res = personService.updatePhone(id, phone);
+    public Response updatePhone(@PathParam("id") long id, Person person) {
+        var res = personService.updatePhone(id, person);
 
         return res == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
     }
 
     @GET
-    @Path("/find")
+    @Path("/{id}")
     @Operation(summary = "Find person by id")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
@@ -86,14 +86,13 @@ public class PersonResource {
             @APIResponse(description = "person not found", responseCode = "404"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
-    public Response findPerson(@QueryParam("id") long id) {
+    public Response findPerson(@PathParam("id") long id) {
         var res = personService.findPerson(id);
 
         return res == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
     }
 
     @GET
-    @Path("/all")
     @Operation(summary = "Find all persons")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
@@ -124,7 +123,7 @@ public class PersonResource {
 
 
     @DELETE
-    @Path("/delete")
+    @Path("/{id}")
     @Operation(summary = "Delete person")
     @APIResponses({
             @APIResponse(description = "deletion result.", responseCode = "200"),

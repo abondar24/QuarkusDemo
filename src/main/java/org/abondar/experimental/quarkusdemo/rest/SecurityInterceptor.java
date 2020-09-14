@@ -13,7 +13,7 @@ import java.util.List;
 @Provider
 public class SecurityInterceptor implements ContainerRequestFilter {
 
-    private final List<String> acceptedPaths = List.of("/demo", "/person/auth","/person/insert");
+    private final List<String> acceptedPaths = List.of("/demo", "/person/auth","/person");
     private final String authHeaderName = "Authorization";
 
 
@@ -26,7 +26,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
         var token = containerRequestContext.getHeaderString(authHeaderName);
 
         if ((!path.contains(acceptedPaths.get(0)) && !path.equals(acceptedPaths.get(1))
-                && !path.equals(acceptedPaths.get(2))) && token == null) {
+                && (!path.equals(acceptedPaths.get(2))&& containerRequestContext.getMethod().equals("PUT"))) && token == null) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         } else if (token != null) {
             try {
