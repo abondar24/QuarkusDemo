@@ -4,12 +4,16 @@ import org.abondar.experimental.quarkusdemo.model.Person;
 import org.abondar.experimental.quarkusdemo.service.PersonService;
 import org.abondar.experimental.quarkusdemo.service.TokenService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameters;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.annotations.SseElementType;
 import org.reactivestreams.Publisher;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,12 +37,13 @@ import static org.abondar.experimental.quarkusdemo.util.KafkaUtil.ID_TOPIC;
 public class PersonResource {
 
     @Inject
-    public TokenService tokenService;
+    TokenService tokenService;
     @Inject
-    private PersonService personService;
+    PersonService personService;
     @Inject
     @Channel(ID_TOPIC)
-    private Publisher<Long> idPublisher;
+    Publisher<Long> idPublisher;
+
 
     @GET
     @Path("/auth")
@@ -56,7 +61,13 @@ public class PersonResource {
 
     @POST
     @Operation(summary = "Creates a new person")
-    @APIResponse(description = "person object", responseCode = "200")
+    @APIResponses({
+            @APIResponse(description = "person object", responseCode = "200"),
+            @APIResponse(description = "missing JWT token or role", responseCode = "401"),
+            @APIResponse(description = "role is not User or Admin", responseCode = "403"),
+            @APIResponse(description = "invalid token", responseCode = "406")
+    })
+    @RolesAllowed({"User","Admin"})
     public Response insertPerson(Person person) {
         var res = personService.insertPerson(person);
         return Response.ok(res).build();
@@ -67,10 +78,12 @@ public class PersonResource {
     @Operation(summary = "Updates person's phone number")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "missing JWT token or role", responseCode = "401"),
+            @APIResponse(description = "role is not User or Admin", responseCode = "403"),
             @APIResponse(description = "person not found", responseCode = "404"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
+    @RolesAllowed({"User","Admin"})
     public Response updatePhone(@PathParam("id") long id, Person person) {
         var res = personService.updatePhone(id, person);
 
@@ -82,7 +95,6 @@ public class PersonResource {
     @Operation(summary = "Find person by id")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
             @APIResponse(description = "person not found", responseCode = "404"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
@@ -96,7 +108,6 @@ public class PersonResource {
     @Operation(summary = "Find all persons")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
             @APIResponse(description = "person not found", responseCode = "404"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
@@ -114,7 +125,6 @@ public class PersonResource {
     @Operation(summary = "Get stream of recently added ids")
     @APIResponses({
             @APIResponse(description = "stream of ids", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
     public Publisher<Long> read() {
@@ -127,9 +137,11 @@ public class PersonResource {
     @Operation(summary = "Delete person")
     @APIResponses({
             @APIResponse(description = "deletion result.", responseCode = "200"),
-            @APIResponse(description = "unauthorized", responseCode = "401"),
+            @APIResponse(description = "missing JWT token or role", responseCode = "401"),
+            @APIResponse(description = "role is not User or Admin", responseCode = "403"),
             @APIResponse(description = "invalid token", responseCode = "406")
     })
+    @RolesAllowed({"User","Admin"})
     public Response deletePerson(@QueryParam("id") long id) {
         var res = personService.deletePerson(id);
 

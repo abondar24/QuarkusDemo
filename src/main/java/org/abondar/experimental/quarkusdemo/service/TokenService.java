@@ -6,6 +6,7 @@ import io.smallrye.jwt.build.Jwt;
 import org.abondar.experimental.quarkusdemo.model.Person;
 import org.eclipse.microprofile.jwt.Claims;
 
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.nio.charset.StandardCharsets;
@@ -14,8 +15,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @RequestScoped
@@ -26,7 +30,9 @@ public class TokenService {
     private final static String PRIMARY_KEY_ID = "/privateKey.pem";
 
     @Inject
-    private PersonService personService;
+     PersonService personService;
+
+
 
     public String generateToken(long id) throws Exception {
 
@@ -39,26 +45,29 @@ public class TokenService {
         return getToken(key, person.get().getFirstName(), person.get().getLastName());
     }
 
-    public boolean validateToken(String token) throws Exception {
+    public io.jsonwebtoken.Claims parseToken(String token) throws Exception{
 
         var key = readPrivateKey();
-
-        try {
-            var claims = Jwts.parser()
-                    .setSigningKey(key)
-                    .parseClaimsJws(token).getBody();
-
-            return claims.get(Claims.given_name.name()) != null && claims.get(Claims.family_name.name()) != null;
-
-        } catch (ExpiredJwtException ex) {
-            return false;
-        }
+        return  Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token).getBody();
     }
 
-    private String getToken(PrivateKey key, String firstName, String lastName) throws Exception {
+
+    public boolean validateToken(io.jsonwebtoken.Claims claims) {
+        var groups = (ArrayList<String>)claims.get(Claims.groups.name());
+            return  groups.size()==2 &&
+                    claims.get(Claims.given_name.name()) != null &&
+                    claims.get(Claims.family_name.name()) != null;
+    }
+
+
+    private String getToken(PrivateKey key, String firstName, String lastName) {
 
         var claims = Jwt.claims();
 
+        claims.groups(new HashSet<>(List.of("User","Admin")));
+        claims.upn("alex@mail.com");
         claims.issuedAt(System.currentTimeMillis());
         claims.expiresAt(new Date().getTime() + EXPIRY_TIME);
         claims.claim(Claims.given_name.name(), firstName);

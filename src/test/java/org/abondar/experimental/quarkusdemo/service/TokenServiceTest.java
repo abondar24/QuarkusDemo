@@ -25,8 +25,8 @@ public class TokenServiceTest {
     @Test
     public void testTokenCheck() throws Exception {
         var token = tokenService.generateToken(7);
-
-        var valid = tokenService.validateToken(token);
+        var claims = tokenService.parseToken(token);
+        var valid = tokenService.validateToken(claims);
 
         assertTrue(valid);
     }

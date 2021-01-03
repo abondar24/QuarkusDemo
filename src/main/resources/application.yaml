@@ -80,3 +80,8 @@ camel:
 
 vertx:
   prefer-native-transport: true
+
+smallrye:
+  jwt:
+    sign:
+      key-location: publicKey.pem
