@@ -76,3 +76,7 @@ mp:
 camel:
   context:
     name: quarkus-demo-context
+
+
+vertx:
+  prefer-native-transport: true

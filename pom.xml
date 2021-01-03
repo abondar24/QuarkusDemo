@@ -6,10 +6,10 @@
 
     <groupId>org.example</groupId>
     <artifactId>qd</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <properties>
-        <quarkus.version>1.3.0.Final</quarkus.version>
+        <quarkus.version>1.10.5.Final</quarkus.version>
         <surefire.version>2.22.2</surefire.version>
         <mybatis.version>3.5.4</mybatis.version>
         <mybatis.cdi.version>1.1.1</mybatis.cdi.version>
@@ -90,6 +90,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-jwt</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -127,6 +131,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
             <version>${camel.quarkus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+            <classifier>linux-x86_64</classifier>
         </dependency>
 
 
