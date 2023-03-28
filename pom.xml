@@ -6,19 +6,16 @@
 
     <groupId>org.example</groupId>
     <artifactId>qd</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <properties>
-        <quarkus.version>1.10.5.Final</quarkus.version>
-        <surefire.version>2.22.2</surefire.version>
-        <mybatis.version>3.5.6</mybatis.version>
-        <mybatis.cdi.version>1.1.1</mybatis.cdi.version>
-        <kafka.version>2.4.1</kafka.version>
-        <resteasy.version>4.5.3.Final</resteasy.version>
+        <quarkus.version>2.16.5.Final</quarkus.version>
+        <surefire.version>3.0.0</surefire.version>
+        <kafka.version>3.4.0</kafka.version>
         <mongo.version>3.12.2</mongo.version>
         <testcontainer.version>1.13.0</testcontainer.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <camel.quarkus.version>1.0.0-M5</camel.quarkus.version>
+        <jjwt.version>0.11.5</jjwt.version>
+        <camel.quarkus.version>2.16.0</camel.quarkus.version>
     </properties>
 
     <dependencyManagement>
@@ -95,16 +92,10 @@
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-cdi</artifactId>
-            <version>${mybatis.cdi.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.quarkiverse.mybatis</groupId>-->
+<!--            <artifactId>quarkus-mybatis</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -114,24 +105,25 @@
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
+            <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-platform-http</artifactId>
-            <version>${camel.quarkus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core</artifactId>
-            <version>${camel.quarkus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-jackson</artifactId>
-            <version>${camel.quarkus.version}</version>
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.camel.quarkus</groupId>-->
+<!--            <artifactId>camel-quarkus-platform-http</artifactId>-->
+<!--            <version>${camel.quarkus.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.camel.quarkus</groupId>-->
+<!--            <artifactId>camel-quarkus-core</artifactId>-->
+<!--            <version>${camel.quarkus.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.camel.quarkus</groupId>-->
+<!--            <artifactId>camel-quarkus-jackson</artifactId>-->
+<!--            <version>${camel.quarkus.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.netty</groupId>
@@ -140,18 +132,11 @@
         </dependency>
 
 
-        <!-- to fix bug with reactive -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-context-propagation</artifactId>
-            <version>${resteasy.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>${mongo.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mongodb</groupId>-->
+<!--            <artifactId>mongo-java-driver</artifactId>-->
+<!--            <version>${mongo.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -187,7 +172,7 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>
-                        11
+                        17
                     </release>
                 </configuration>
             </plugin>

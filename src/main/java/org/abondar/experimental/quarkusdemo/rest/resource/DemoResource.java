@@ -6,7 +6,6 @@ import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.core.Vertx;
 import org.abondar.experimental.quarkusdemo.service.DemoService;
 
-import org.apache.camel.Produce;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.annotations.SseElementType;
@@ -62,7 +61,7 @@ public class DemoResource {
                 .ticks()
                 .every(Duration.ofSeconds(3))
                 .onItem()
-                .apply(n -> "Stream response: " + n);
+                .transform(n -> "Stream response: " + n);
     }
 
 
@@ -70,10 +69,10 @@ public class DemoResource {
     @Path("/vertx")
     @Operation(summary = "Read file")
     @APIResponse(description = "File contents", responseCode = "200")
-    @Produce(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
     public Uni<String> asyncAction(){
        return vertx.fileSystem()
-               .readFile("/META-INF/text.txt")
+               .readFile("text.txt")
                .onItem()
                .transform(b->b.toString("UTF-8"));
 
