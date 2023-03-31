@@ -9,7 +9,7 @@
     <version>0.0.3</version>
 
     <properties>
-        <quarkus.version>2.16.5.Final</quarkus.version>
+        <quarkus.version>3.0.0.CR1</quarkus.version>
         <surefire.version>3.0.0</surefire.version>
         <kafka.version>3.4.0</kafka.version>
         <mongo.version>3.12.2</mongo.version>
@@ -91,11 +91,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>io.quarkiverse.mybatis</groupId>-->
-<!--            <artifactId>quarkus-mybatis</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.quarkiverse.mybatis</groupId>
+            <artifactId>quarkus-mybatis</artifactId>
+            <version>2.0.0.CR2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -130,7 +130,6 @@
             <artifactId>netty-transport-native-epoll</artifactId>
             <classifier>linux-x86_64</classifier>
         </dependency>
-
 
 <!--        <dependency>-->
 <!--            <groupId>org.mongodb</groupId>-->

@@ -2,9 +2,9 @@ package org.abondar.experimental.quarkusdemo.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.is;
 public class DemoResourceTest {
 
     @Inject
-    private ObjectMapper mapper;
+     ObjectMapper mapper;
 
     @Test
     public void testStatus() throws Exception {

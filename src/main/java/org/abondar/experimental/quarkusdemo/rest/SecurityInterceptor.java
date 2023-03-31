@@ -1,17 +1,18 @@
 //package org.abondar.experimental.quarkusdemo.rest;
 //
 //
-////import org.abondar.experimental.quarkusdemo.service.TokenService;
+//import jakarta.enterprise.context.ApplicationScoped;
+//import jakarta.ws.rs.container.ContainerRequestContext;
+//import jakarta.ws.rs.container.ContainerRequestFilter;
+//import jakarta.ws.rs.container.PreMatching;
+//import jakarta.ws.rs.core.Response;
+//import jakarta.ws.rs.ext.Provider;
+//import jakarta.inject.Inject;
+//
+//import org.abondar.experimental.quarkusdemo.service.TokenService;
 //import org.eclipse.microprofile.jwt.Claims;
 //
-//import javax.enterprise.context.ApplicationScoped;
-//import javax.inject.Inject;
-//import javax.ws.rs.container.ContainerRequestContext;
-//import javax.ws.rs.container.ContainerRequestFilter;
-//import javax.ws.rs.container.PreMatching;
-//import javax.ws.rs.core.Response;
-//import javax.ws.rs.core.SecurityContext;
-//import javax.ws.rs.ext.Provider;
+//
 //import java.nio.file.attribute.UserPrincipal;
 //import java.security.Principal;
 //
