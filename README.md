@@ -39,3 +39,4 @@ Body:
 
 GET http://localhost:8020/job/find
 
+DEV Endpoint: http://localhost:8020/q/dev/

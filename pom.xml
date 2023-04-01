@@ -16,6 +16,7 @@
         <testcontainer.version>1.13.0</testcontainer.version>
         <jjwt.version>0.11.5</jjwt.version>
         <camel.quarkus.version>2.16.0</camel.quarkus.version>
+        <quarkus.mybatis.version>2.0.0.CR2</quarkus.mybatis.version>
     </properties>
 
     <dependencyManagement>
@@ -94,7 +95,7 @@
         <dependency>
             <groupId>io.quarkiverse.mybatis</groupId>
             <artifactId>quarkus-mybatis</artifactId>
-            <version>2.0.0.CR2</version>
+            <version>${quarkus.mybatis.version}</version>
         </dependency>
 
         <dependency>
@@ -108,8 +109,19 @@
             <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-<!--        <dependency>-->
+        <!--        <dependency>-->
 <!--            <groupId>org.apache.camel.quarkus</groupId>-->
 <!--            <artifactId>camel-quarkus-platform-http</artifactId>-->
 <!--            <version>${camel.quarkus.version}</version>-->

@@ -16,7 +16,7 @@ public class DemoResourceTest {
      ObjectMapper mapper;
 
     @Test
-    public void testStatus() throws Exception {
+    void testStatus() throws Exception {
 
         String res = mapper.writeValueAsString("quarkus app is up");
         given()
@@ -29,7 +29,7 @@ public class DemoResourceTest {
     }
 
     @Test
-    public void testHello() throws Exception {
+    void testHello() throws Exception {
 
         String res = mapper.writeValueAsString("Hello Alex");
         given()
