@@ -1,11 +1,11 @@
 package org.abondar.experimental.quarkusdemo.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
+//todo: switch to record
 @RegisterForReflection
 public class Person implements Serializable {
 

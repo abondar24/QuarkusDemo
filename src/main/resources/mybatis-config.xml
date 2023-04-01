@@ -13,9 +13,7 @@
                 <property name="JDBC.autoCommit" value="true"/>
             </transactionManager>
 
-            <dataSource type="POOLED">
-
-                <property name="driver" value="org.postgresql.Driver"/>
+            <dataSource type="QUARKUS">
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
@@ -25,10 +23,7 @@
             <transactionManager type="JDBC">
                 <property name="JDBC.autoCommit" value="true"/>
             </transactionManager>
-
-            <dataSource type="POOLED">
-
-                <property name="driver" value="org.postgresql.Driver"/>
+            <dataSource type="QUARKUS">
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
@@ -36,6 +31,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper.xml"/>
+       <mapper resource="personMapper.xml"/>
     </mappers>
 </configuration>

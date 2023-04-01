@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 public class PersonServiceTest {
 
+    //todo mock dao in real service
+    //todo test kafka service
+    //todo test mongo
     @Inject
     @Named("mockService")
     PersonService personService;
