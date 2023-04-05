@@ -18,6 +18,7 @@ import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 
 
+//todo fix jwt keys
 @Provider
 @ApplicationScoped
 @PreMatching
@@ -25,6 +26,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
 
     private final String authHeaderName = "Authorization";
 
+    private final String roleHeaderName = "Role";
 
     @Inject
     TokenService tokenService;
@@ -34,7 +36,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
         var path = containerRequestContext.getUriInfo().getPath();
         var token = containerRequestContext.getHeaderString(authHeaderName);
         var method = containerRequestContext.getMethod();
-        var role = containerRequestContext.getHeaders().getFirst("Role");
+        var role = containerRequestContext.getHeaders().getFirst(roleHeaderName);
         if (path.startsWith("/person") &&
                 (!method.equals("GET")) && (token == null || role==null)) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());

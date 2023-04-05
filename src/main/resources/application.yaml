@@ -4,9 +4,10 @@ quarkus:
 
   http:
     port: 8020
-    test-port: 8010
-
+    root-path: /
   datasource:
+    devservices:
+      enabled: false
     db-kind: postgresql
     username: admin
     password: admin217
@@ -26,22 +27,8 @@ quarkus:
     validate-on-migrate: true
     schemas: public
 
-
-      #    test:
-#      jdbc:
-#          url: jdbc:postgresql://localhost:5432/quarkus_test
-#      min-size: 4
-#      max-size: 16
-
-
-
-
-#  mongodb:
-#    connection-string:  mongodb://admin:admin217@localhost:27017
-
   swagger-ui:
     always-include: true
-
 
   smallrye-jwt:
     enabled: true
@@ -92,11 +79,35 @@ quarkus:
 vertx:
   prefer-native-transport: true
 
+"%prod":
+  quarkus:
+    mongodb:
+      connection-string:  mongodb://admin:admin217@localhost:27017
+
+    devservices:
+      enabled: false
+
 
 "%test":
   quarkus:
     datasource:
-      jdbc:
-       url: jdbc:postgresql://localhost:5432/quarkus_test
+      devservices:
+        enabled: true
+        image-name: postgres
+        db-name: quarkus_db
+        port: 5432
+
     mybatis:
       environment: test
+
+    mongodb:
+       devservices:
+         enabled: true
+         image-name: mongo
+         port: 27017
+
+
+    devservices:
+      enabled: true
+    http:
+      port: 8010

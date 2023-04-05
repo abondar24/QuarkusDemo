@@ -77,8 +77,7 @@ public class PersonResource {
     @Operation(summary = "Find person by id")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "person not found", responseCode = "404"),
-            @APIResponse(description = "invalid token", responseCode = "406")
+            @APIResponse(description = "person not found", responseCode = "404")
     })
     public Response findPerson(@PathParam("id") long id) {
         var res = personService.findPerson(id);
@@ -90,8 +89,7 @@ public class PersonResource {
     @Operation(summary = "Find all persons")
     @APIResponses({
             @APIResponse(description = "person object", responseCode = "200"),
-            @APIResponse(description = "person not found", responseCode = "404"),
-            @APIResponse(description = "invalid token", responseCode = "406")
+            @APIResponse(description = "person not found", responseCode = "404")
     })
     public Response all() {
         var res = personService.findAll();
@@ -106,8 +104,7 @@ public class PersonResource {
     @SseElementType(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get stream of recently added ids")
     @APIResponses({
-            @APIResponse(description = "stream of ids", responseCode = "200"),
-            @APIResponse(description = "invalid token", responseCode = "406")
+            @APIResponse(description = "stream of ids", responseCode = "200")
     })
     public Publisher<Long> read() {
         return idPublisher;
@@ -124,7 +121,7 @@ public class PersonResource {
             @APIResponse(description = "invalid token", responseCode = "406")
     })
     @RolesAllowed({"Admin"})
-    public Response deletePerson(@QueryParam("id") long id) {
+    public Response deletePerson(@PathParam("id") long id) {
         var res = personService.deletePerson(id);
 
         return Response.ok(res).build();

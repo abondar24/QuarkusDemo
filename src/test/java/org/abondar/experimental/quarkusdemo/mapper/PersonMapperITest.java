@@ -3,10 +3,6 @@ package org.abondar.experimental.quarkusdemo.mapper;
 import io.quarkus.test.junit.QuarkusTest;
 
 import org.abondar.experimental.quarkusdemo.model.Person;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import jakarta.inject.Inject;
 
@@ -15,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-public class PersonMapperTest {
+public class PersonMapperITest {
 
     @Inject
     PersonMapper personMapper;

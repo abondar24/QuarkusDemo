@@ -17,15 +17,15 @@ public class PersonServiceImpl implements PersonService {
 //    @Inject
 //    private PersonKafkaService kafkaService;
 
-//    @Inject
-//    private PersonMongoService mongoService;
+    @Inject
+    PersonMongoService mongoService;
 
 
     @Override
     public Person insertPerson(Person person) {
         personMapper.insertPerson(person);
     //    kafkaService.sendToKafka(person);
-   //     mongoService.add(person);
+        mongoService.add(person);
         return person;
     }
 
@@ -49,8 +49,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findAll() {
-     //   return mongoService.getAll();
-        return List.of();
+       return mongoService.getAll();
     }
 
     @Override

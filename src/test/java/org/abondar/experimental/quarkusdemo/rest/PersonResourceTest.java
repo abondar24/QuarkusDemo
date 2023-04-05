@@ -122,15 +122,13 @@ public class PersonResourceTest {
     }
 
     @Test
-    void deletePersonTest() {
-
+    void deletePersonTest() throws Exception{
         given()
                 .when()
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
                 .header(new Header("Role","Admin"))
-                .queryParam("id", 7)
-                .delete("/person/delete")
+                .delete("/person/7")
                 .then()
                 .statusCode(200);
 
@@ -144,8 +142,7 @@ public class PersonResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .header(authHeader)
                 .header(userRole)
-                .queryParam("id", 7)
-                .delete("/person/delete")
+                .delete("/person/7")
                 .then()
                 .statusCode(403);
 
