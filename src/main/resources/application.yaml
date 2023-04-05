@@ -28,7 +28,7 @@ quarkus:
     schemas: public
 
   swagger-ui:
-    always-include: true
+    enable: true
 
   smallrye-jwt:
     enabled: true
@@ -42,33 +42,28 @@ quarkus:
         location: publicKey.pem
       issuer: https://quarkus.io/using-jwt-rbac
 
-#mp:
-#  messaging:
-#    outgoing:
-#      person-sink:
-#        connector: smallrye-kafka
-#        topic: persontopic
-#        value:
-#          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
-#
-#      id-sink:
-#        connector: smallrye-kafka
-#        topic: idtopic
-#        value:
-#          serializer: org.apache.kafka.common.serialization.LongSerializer
-#
-#    incoming:
-#      persontopic:
-#        connector: smallrye-kafka
-#        topic: persontopic
-#        value:
-#           deserializer: org.abondar.experimental.quarkusdemo.model.PersonDeserializer
-#
-#      idtopic:
-#        connector: smallrye-kafka
-#        topic: idtopic
-#        value:
-#          deserializer: org.apache.kafka.common.serialization.LongDeserializer
+mp:
+  messaging:
+      outgoing:
+        person-sink:
+          connector: smallrye-kafka
+          bootstrap:
+           servers: localhost:9092
+
+        id-sink:
+          connector: smallrye-kafka
+          topic: idtopic
+
+      incoming:
+        persontopic:
+          connector: smallrye-kafka
+          bootstrap:
+            servers: localhost:9092
+
+        idtopic:
+          connector: smallrye-kafka
+          bootstrap:
+            servers: localhost:9092
 
 
 #camel:
