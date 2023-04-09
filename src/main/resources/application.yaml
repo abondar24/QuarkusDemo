@@ -86,11 +86,13 @@ vertx:
 "%test":
   quarkus:
     datasource:
+      jdbc:
+        url: jdbc:postgresql://localhost:5433/quarkus_db
       devservices:
         enabled: true
         image-name: postgres
         db-name: quarkus_db
-        port: 5432
+        port: 5433
 
     mybatis:
       environment: test

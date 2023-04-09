@@ -1,0 +1,42 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: ayltai/setup-graalvm@v1
+        with:
+          java-version: 17
+          graalvm-version: 21.3.0
+      - name: Build
+        run:  mvn clean install -DskipTests
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: ayltai/setup-graalvm@v1
+        with:
+          java-version: 17
+          graalvm-version: 21.3.0
+      - name: Test
+        run:  mvn clean test
+      - name: Test Report
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: target/surefire-reports/TEST-*.xml
