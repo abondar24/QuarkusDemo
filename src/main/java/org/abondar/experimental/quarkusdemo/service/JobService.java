@@ -1,8 +1,9 @@
 package org.abondar.experimental.quarkusdemo.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 import org.abondar.experimental.quarkusdemo.model.Job;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
 

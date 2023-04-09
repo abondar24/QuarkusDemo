@@ -30,6 +30,20 @@ quarkus:
   swagger-ui:
     enable: true
 
+  camel:
+    openapi:
+      expose:
+        enabled: true
+
+  io:
+    vertx:
+      prefer-native-transport: true
+      web:
+        route:
+          param:
+            extended-pattern:
+              true
+
   smallrye-jwt:
     enabled: true
     jwt:
@@ -65,14 +79,6 @@ mp:
           bootstrap:
             servers: localhost:9092
 
-
-#camel:
-#  context:
-#    name: quarkus-demo-context
-
-
-vertx:
-  prefer-native-transport: true
 
 "%prod":
   quarkus:

@@ -14,7 +14,7 @@
         <mongo.version>3.12.2</mongo.version>
         <testcontainer.version>1.13.0</testcontainer.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <camel.quarkus.version>2.16.0</camel.quarkus.version>
+        <camel.quarkus.version>3.0.0-M1</camel.quarkus.version>
         <quarkus.mybatis.version>2.0.0.CR2</quarkus.mybatis.version>
     </properties>
 
@@ -129,34 +129,51 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--        <dependency>-->
-<!--            <groupId>org.apache.camel.quarkus</groupId>-->
-<!--            <artifactId>camel-quarkus-platform-http</artifactId>-->
-<!--            <version>${camel.quarkus.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.camel.quarkus</groupId>-->
-<!--            <artifactId>camel-quarkus-core</artifactId>-->
-<!--            <version>${camel.quarkus.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.camel.quarkus</groupId>-->
-<!--            <artifactId>camel-quarkus-jackson</artifactId>-->
-<!--            <version>${camel.quarkus.version}</version>-->
-<!--        </dependency>-->
-
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-rest</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jackson</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-rest-openapi</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-platform-http</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-http</artifactId>
+            <version>${camel.quarkus.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-epoll</artifactId>
             <classifier>linux-x86_64</classifier>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.mongodb</groupId>-->
-<!--            <artifactId>mongo-java-driver</artifactId>-->
-<!--            <version>${mongo.version}</version>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>

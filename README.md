@@ -27,7 +27,7 @@ SwaggerUI: http://localhost:8020/q/swagger-ui
 
 ### Camel endpoints
 
-POST http://localhost:8020/job/add
+POST http://localhost:8020/job
 
 Body:
 ```yaml
@@ -37,7 +37,7 @@ Body:
 }
 ```
 
-GET http://localhost:8020/job/find
+GET http://localhost:8020/job
 
 DEV Endpoint: http://localhost:8020/q/dev/
 
