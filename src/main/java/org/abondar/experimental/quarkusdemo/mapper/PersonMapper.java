@@ -1,7 +1,7 @@
 package org.abondar.experimental.quarkusdemo.mapper;
 
 import io.quarkiverse.mybatis.runtime.meta.MapperDataSource;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,11 +9,11 @@ import org.apache.ibatis.annotations.Param;
 @MapperDataSource("xmlconfig")
 public interface PersonMapper {
 
-    void insertPerson(@Param("person") Person person);
+    void insertPerson(@Param("person") PersonDTO personDTO);
 
-    void updatePhoneNumber(@Param("person") Person person);
+    void updatePhoneNumber(@Param("person") PersonDTO personDTO);
 
-    Person getPersonById(@Param("id") long id);
+    PersonDTO getPersonById(@Param("id") long id);
 
     void deletePerson(@Param("id") long id);
 }

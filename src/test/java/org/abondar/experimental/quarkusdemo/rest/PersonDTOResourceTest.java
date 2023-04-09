@@ -5,7 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class PersonResourceTest {
+public class PersonDTOResourceTest {
 
 
     @Inject
@@ -40,7 +40,7 @@ public class PersonResourceTest {
 
     @Test
     void insertPersonTest() throws Exception {
-        var person = new Person();
+        var person = new PersonDTO();
         person.setFirstName("test");
         person.setLastName("test");
         person.setPhoneNumber("0000");
@@ -64,7 +64,7 @@ public class PersonResourceTest {
 
     @Test
     void updatePersonTest() {
-        var person = new Person();
+        var person = new PersonDTO();
         person.setPhoneNumber("0000");
 
         given()
@@ -83,7 +83,7 @@ public class PersonResourceTest {
 
     @Test
     void updatePersonNotFoundTest() {
-        var person = new Person();
+        var person = new PersonDTO();
         person.setPhoneNumber("phone");
 
         given()

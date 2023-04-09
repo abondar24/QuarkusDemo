@@ -3,13 +3,15 @@ package org.abondar.experimental.quarkusdemo.model;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.io.Serial;
 import java.io.Serializable;
 
-//todo: switch to record
 @RegisterForReflection
-public class Person implements Serializable {
+public class PersonDTO implements Serializable {
 
-    private static long serialVersionUID = -21L;
+    @Serial
+    private static final long serialVersionUID = -21L;
 
     private long id;
 
@@ -25,16 +27,16 @@ public class Person implements Serializable {
     @Size(max = 50)
     private String phoneNumber;
 
-    public Person() {
+    public PersonDTO() {
     }
 
-    public Person(@NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
+    public PersonDTO(@NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
 
-    public Person(long id, @NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
+    public PersonDTO(long id, @NotNull @Size(max = 50) String firstName, @NotNull @Size(max = 50) String lastName, @NotNull @Size(max = 50) String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

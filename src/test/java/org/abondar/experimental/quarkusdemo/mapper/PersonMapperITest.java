@@ -2,7 +2,7 @@ package org.abondar.experimental.quarkusdemo.mapper;
 
 import io.quarkus.test.junit.QuarkusTest;
 
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.junit.jupiter.api.Test;
 import jakarta.inject.Inject;
 
@@ -18,7 +18,7 @@ public class PersonMapperITest {
 
     @Test
     public void testPersonMapper() {
-        var person = new Person("Alex", "Bondar", "+79991112233");
+        var person = new PersonDTO("Alex", "Bondar", "+79991112233");
         personMapper.insertPerson(person);
         assertTrue(person.getId() > 0);
 

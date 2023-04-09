@@ -5,7 +5,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
+import org.abondar.experimental.quarkusdemo.model.PersonRequest;
+import org.abondar.experimental.quarkusdemo.model.PersonResponse;
 import org.bson.Document;
 
 
@@ -18,22 +20,22 @@ public class PersonMongoService {
     @Inject
     MongoClient client;
 
-    public void add(Person person) {
+    public void add(PersonRequest request) {
         var doc = new Document()
-                .append("firstName", person.getFirstName())
-                .append("lastName", person.getLastName())
-                .append("phoneNumber", person.getPhoneNumber());
+                .append("firstName", request.firstName())
+                .append("lastName",request.lastName())
+                .append("phoneNumber", request.phoneNumber());
 
         getCollection().insertOne(doc);
     }
 
-    public List<Person> getAll() {
-        List<Person> res = new ArrayList<>();
+    public List<PersonResponse> getAll() {
+        List<PersonResponse> res = new ArrayList<>();
 
         try (var cursor = getCollection().find().iterator()) {
             while (cursor.hasNext()) {
                 var doc = cursor.next();
-                res.add(new Person(doc.getString("firstName"),
+                res.add(new PersonResponse(0,doc.getString("firstName"),
                         doc.getString("lastName"),
                         doc.getString("phoneNumber")));
             }

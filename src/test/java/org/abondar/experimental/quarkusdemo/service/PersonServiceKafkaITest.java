@@ -2,22 +2,22 @@ package org.abondar.experimental.quarkusdemo.service;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-public class PersonServiceKafkaItest {
+public class PersonServiceKafkaITest {
 
     @Inject
     PersonKafkaService kafkaService;
 
     @Test
     void kafkaServiceTest(){
-        var person = new Person("Alex", "Bondar", "0000000");
+        var person = new PersonDTO("Alex", "Bondar", "0000000");
         kafkaService.sendToKafka(person);
         var res = kafkaService.readFromKafka(person);
-        assertEquals(0,person.getId());
+        assertEquals(res,person.getId());
     }
 }

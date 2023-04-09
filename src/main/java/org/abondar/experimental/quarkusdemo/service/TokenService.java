@@ -5,7 +5,8 @@ import io.jsonwebtoken.Jwts;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
+import org.abondar.experimental.quarkusdemo.model.PersonResponse;
 import org.eclipse.microprofile.jwt.Claims;
 
 
@@ -21,7 +22,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RequestScoped
@@ -36,14 +36,13 @@ public class TokenService {
 
 
     public String generateToken(long id) throws Exception {
-
         var person = findPerson(id);
         if (person.isEmpty()) {
             return "";
         }
 
         var key = readPrivateKey();
-        return getToken(key, person.get().getFirstName(), person.get().getLastName());
+        return getToken(key, person.get().firstName(), person.get().lastName());
     }
 
     public io.jsonwebtoken.Claims parseToken(String token) throws Exception{
@@ -82,9 +81,8 @@ public class TokenService {
                 .sign(key);
     }
 
-    private Optional<Person> findPerson(long id) {
-        var person = personService.findPerson(id);
-        return Optional.of(person);
+    private Optional<PersonResponse> findPerson(long id) {
+        return personService.findPerson(id);
     }
 
     private PrivateKey readPrivateKey() throws Exception {

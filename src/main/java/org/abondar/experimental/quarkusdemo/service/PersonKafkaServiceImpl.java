@@ -3,7 +3,7 @@ package org.abondar.experimental.quarkusdemo.service;
 import io.smallrye.reactive.messaging.annotations.Broadcast;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -23,23 +23,23 @@ public class PersonKafkaServiceImpl implements PersonKafkaService {
 
     @Inject
     @Channel(PERSON_SINK)
-    Emitter<Person> personEmitter;
+    Emitter<PersonDTO> personEmitter;
 
     @Override
-    public void sendToKafka(Person person) {
-        personEmitter.send(person);
+    public void sendToKafka(PersonDTO personDTO) {
+        personEmitter.send(personDTO);
     }
 
     @Incoming(PERSON_TOPIC)
     @Outgoing(ID_SINK)
     @Broadcast
     @Override
-    public long readFromKafka(Person person) {
+    public long readFromKafka(PersonDTO personDTO) {
 
-        logger.info(person.toString());
+        logger.info(personDTO.toString());
 
 
-        return person.getId();
+        return personDTO.getId();
     }
 
 

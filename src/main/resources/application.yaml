@@ -44,6 +44,7 @@ quarkus:
             extended-pattern:
               true
 
+#todo: clean up jwt staff
   smallrye-jwt:
     enabled: true
     jwt:

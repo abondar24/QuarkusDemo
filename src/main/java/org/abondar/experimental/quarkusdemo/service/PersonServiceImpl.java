@@ -3,9 +3,12 @@ package org.abondar.experimental.quarkusdemo.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.abondar.experimental.quarkusdemo.mapper.PersonMapper;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
+import org.abondar.experimental.quarkusdemo.model.PersonRequest;
+import org.abondar.experimental.quarkusdemo.model.PersonResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class PersonServiceImpl implements PersonService {
@@ -14,41 +17,52 @@ public class PersonServiceImpl implements PersonService {
     PersonMapper personMapper;
 
 
-//    @Inject
-//    private PersonKafkaService kafkaService;
+    @Inject
+    PersonKafkaService kafkaService;
 
     @Inject
     PersonMongoService mongoService;
 
 
     @Override
-    public Person insertPerson(Person person) {
-        personMapper.insertPerson(person);
-    //    kafkaService.sendToKafka(person);
-        mongoService.add(person);
-        return person;
+    public PersonResponse insertPerson(PersonRequest request) {
+        mongoService.add(request);
+
+        var personDTO = new PersonDTO(request.firstName(), request.lastName(),request.phoneNumber());
+        personMapper.insertPerson(personDTO);
+
+        kafkaService.sendToKafka(personDTO);
+
+        return new PersonResponse(personDTO.getId(),personDTO.getFirstName(),
+                personDTO.getLastName(), personDTO.getPhoneNumber());
     }
 
     @Override
-    public Person updatePhone(long id, Person person) {
-        var pers = personMapper.getPersonById(id);
-        if (pers != null) {
-            pers.setPhoneNumber(person.getPhoneNumber());
-            personMapper.updatePhoneNumber(person);
-            return person;
+    public PersonResponse updatePhone(long id, PersonRequest request) {
+        var personDTO = personMapper.getPersonById(id);
+        if (personDTO != null) {
+            personDTO.setPhoneNumber(request.phoneNumber());
+            personMapper.updatePhoneNumber(personDTO);
+            return new PersonResponse(personDTO.getId(),personDTO.getFirstName(),
+                    personDTO.getLastName(), personDTO.getPhoneNumber());
         }
 
         return null;
     }
 
     @Override
-    public Person findPerson(long id) {
-        var res = personMapper.getPersonById(id);
-        return res;
+    public Optional<PersonResponse> findPerson(long id) {
+        var personDTO = personMapper.getPersonById(id);
+        if (personDTO != null){
+            return Optional.of(new PersonResponse(personDTO.getId(),personDTO.getFirstName(),
+                    personDTO.getLastName(), personDTO.getPhoneNumber()));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<PersonResponse> findAll() {
        return mongoService.getAll();
     }
 

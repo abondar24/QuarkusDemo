@@ -11,12 +11,11 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.abondar.experimental.quarkusdemo.model.Person;
+import org.abondar.experimental.quarkusdemo.model.PersonDTO;
+import org.abondar.experimental.quarkusdemo.model.PersonRequest;
 import org.abondar.experimental.quarkusdemo.service.PersonService;
-import org.abondar.experimental.quarkusdemo.service.TokenService;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
@@ -50,8 +49,8 @@ public class PersonResource {
             @APIResponse(description = "invalid token", responseCode = "406")
     })
     @RolesAllowed({"User","Admin"})
-    public Response insertPerson(Person person) {
-        var res = personService.insertPerson(person);
+    public Response insertPerson(PersonRequest request) {
+        var res = personService.insertPerson(request);
         return Response.ok(res).build();
     }
 
@@ -66,8 +65,8 @@ public class PersonResource {
             @APIResponse(description = "invalid token", responseCode = "406")
     })
     @RolesAllowed({"User","Admin"})
-    public Response updatePhone(@PathParam("id") long id, Person person) {
-        var res = personService.updatePhone(id, person);
+    public Response updatePhone(@PathParam("id") long id, PersonRequest request) {
+        var res = personService.updatePhone(id, request);
 
         return res == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
     }
@@ -82,7 +81,7 @@ public class PersonResource {
     public Response findPerson(@PathParam("id") long id) {
         var res = personService.findPerson(id);
 
-        return res == null ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
+        return res.isEmpty() ? Response.status(Response.Status.NOT_FOUND).build() : Response.ok(res).build();
     }
 
     @GET
