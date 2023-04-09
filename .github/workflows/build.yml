@@ -20,7 +20,7 @@ jobs:
         uses: graalvm/setup-graalvm@v1
         with:
           java-version: '17'
-          graalvm-version: '22.3.0'
+          version: '22.3.0'
       - name: Build
         run:  mvn clean install -DskipTests
   test:
