@@ -15,7 +15,7 @@
         <testcontainer.version>1.13.0</testcontainer.version>
         <jjwt.version>0.11.5</jjwt.version>
         <camel.quarkus.version>3.0.0-M1</camel.quarkus.version>
-        <quarkus.mybatis.version>2.0.0.CR2</quarkus.mybatis.version>
+        <quarkus.mybatis.version>2.0.0</quarkus.mybatis.version>
     </properties>
 
     <dependencyManagement>
@@ -100,17 +100,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5-mockito</artifactId>
-            <scope>test</scope>
-        </dependency>
-
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -174,12 +163,22 @@
             <artifactId>netty-transport-native-epoll</artifactId>
             <classifier>linux-x86_64</classifier>
         </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 

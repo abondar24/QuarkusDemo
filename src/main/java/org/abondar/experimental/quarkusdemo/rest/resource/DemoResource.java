@@ -22,7 +22,7 @@ import java.time.Duration;
 
 @Path("/demo")
 public class DemoResource {
-
+//TODO The quarkus-resteasy-mutiny extension is deprecated. Switch to RESTEasy Reactive instead.
     @Inject
     ObjectMapper mapper;
 

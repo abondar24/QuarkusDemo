@@ -32,7 +32,7 @@ public class TokenService {
     private final static String PRIMARY_KEY_ID = "/privateKey.pem";
 
     @Inject
-     PersonService personService;
+    PersonService personService;
 
 
     public String generateToken(long id) throws Exception {

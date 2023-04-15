@@ -41,4 +41,8 @@ GET http://localhost:8020/job
 
 DEV Endpoint: http://localhost:8020/q/dev/
 
-todo: add profiles and testing notes
+# Ruuning profiles
+
+- Prod - need external stuff
+- Test - test containers are used
+- Dev - dev profile with dev tools enabled.

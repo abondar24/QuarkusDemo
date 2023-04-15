@@ -2,7 +2,6 @@ package org.abondar.experimental.quarkusdemo.service;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.abondar.experimental.quarkusdemo.model.PersonRequest;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PersonMongoITest {
 
     @Inject
-    PersonMongoService service;
+    PersonMongoServiceImpl service;
 
     @Test
     void personMongoTest(){
