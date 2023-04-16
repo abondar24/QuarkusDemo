@@ -28,6 +28,7 @@ quarkus:
     schemas: public
 
   swagger-ui:
+    always-include: true
     enable: true
 
   native:
