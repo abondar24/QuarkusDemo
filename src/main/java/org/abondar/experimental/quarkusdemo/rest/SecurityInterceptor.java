@@ -42,8 +42,8 @@ public class SecurityInterceptor implements ContainerRequestFilter {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         } else if (token != null) {
             try {
-                var claims = tokenService.parseToken(token.substring(4));
-                if (!tokenService.validateToken(claims)) {
+                var jwt = tokenService.parseToken(token.substring(4));
+                if (!tokenService.validateToken(jwt)) {
                     containerRequestContext
                             .abortWith(Response
                                     .status(Response.Status.NOT_ACCEPTABLE.getStatusCode(),
@@ -53,7 +53,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
                     containerRequestContext.setSecurityContext(new SecurityContext() {
                         @Override
                         public Principal getUserPrincipal() {
-                            return (UserPrincipal) () -> claims.get(Claims.given_name.name()) + (String) claims.get(Claims.family_name.name());
+                            return (UserPrincipal) () -> jwt.getClaim(Claims.given_name.name()) +  (String) jwt.getClaim(Claims.family_name.name());
                         }
 
                         @Override

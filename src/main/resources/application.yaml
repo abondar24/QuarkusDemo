@@ -30,34 +30,26 @@ quarkus:
   swagger-ui:
     enable: true
 
-  camel:
-    openapi:
-      expose:
-        enabled: true
+  native:
+    resources:
+      includes:
+        publicKey.pem
 
-  io:
-    vertx:
-      prefer-native-transport: true
-      web:
-        route:
-          param:
-            extended-pattern:
-              true
-
-#todo: clean up jwt staff
-  smallrye-jwt:
-    enabled: true
+smallrye:
     jwt:
       sign:
-        key-location: publicKey.pem
+        key:
+          location:
+             privateKey.pem
+      encrypt:
+        key: publicKey.pem
 
+mp:
   jwt:
     verify:
       publickey:
-        location: publicKey.pem
-      issuer: https://quarkus.io/using-jwt-rbac
-
-mp:
+        location:
+          publicKey.pem
   messaging:
       outgoing:
         person-sink:
@@ -79,6 +71,11 @@ mp:
           connector: smallrye-kafka
           bootstrap:
             servers: localhost:9092
+
+camel:
+  openapi:
+    expose:
+      enabled: true
 
 
 "%prod":

@@ -1,14 +1,13 @@
 package org.abondar.experimental.quarkusdemo.service;
 
 
-import io.jsonwebtoken.Jwts;
+import io.smallrye.jwt.auth.principal.JWTParser;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import org.abondar.experimental.quarkusdemo.model.PersonDTO;
 import org.abondar.experimental.quarkusdemo.model.PersonResponse;
 import org.eclipse.microprofile.jwt.Claims;
-
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 
 import java.nio.charset.StandardCharsets;
@@ -34,39 +33,34 @@ public class TokenService {
     @Inject
     PersonService personService;
 
+    @Inject
+    JWTParser parser;
 
-    public String generateToken(long id) throws Exception {
+
+    public String generateToken(long id) {
         var person = findPerson(id);
         if (person.isEmpty()) {
             return "";
         }
 
-        var key = readPrivateKey();
-        return getToken(key, person.get().firstName(), person.get().lastName());
+        return getToken(person.get().firstName(), person.get().lastName());
     }
 
-    public io.jsonwebtoken.Claims parseToken(String token) throws Exception{
-
-        var key = readPrivateKey();
-        return  Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public JsonWebToken parseToken(String token) throws Exception{
+        return parser.parse(token);
     }
 
 
-    public boolean validateToken(io.jsonwebtoken.Claims claims) {
-        var groups = (ArrayList<String>)claims.get(Claims.groups.name());
-            return  groups.size()==2 &&
-                    claims.get(Claims.given_name.name()) != null &&
-                    claims.get(Claims.family_name.name()) != null;
+    public boolean validateToken(JsonWebToken jwt) {
+
+        var groups = (HashSet<String>)jwt.getClaim(Claims.groups.name());
+         return  groups.size()==2 &&
+                    jwt.getClaim(Claims.given_name.name()) != null &&
+                    jwt.getClaim(Claims.family_name.name()) != null;
     }
 
 
-    private String getToken(PrivateKey key, String firstName, String lastName) {
-
+    private String getToken(String firstName, String lastName) {
         var claims = Jwt.claims();
 
         claims.groups(new HashSet<>(List.of("User","Admin")));
@@ -78,42 +72,12 @@ public class TokenService {
 
         return claims.jws()
                 .keyId(PRIMARY_KEY_ID)
-                .sign(key);
+                .sign();
     }
 
     private Optional<PersonResponse> findPerson(long id) {
         return personService.findPerson(id);
     }
 
-    private PrivateKey readPrivateKey() throws Exception {
-        try (var is = TokenService.class.getResourceAsStream(PRIMARY_KEY_ID)) {
-            var buf = new byte[4096];
-            var length = is.read(buf);
-            return decodeKey(new String(buf, 0, length, StandardCharsets.UTF_8));
-        }
-    }
 
-
-    private PrivateKey decodeKey(String encKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        var bytes = toBytes(encKey);
-        var keySpec = new PKCS8EncodedKeySpec(bytes);
-        var keyFactory = KeyFactory.getInstance("RSA");
-
-        return keyFactory.generatePrivate(keySpec);
-    }
-
-
-    private byte[] toBytes(String encKey) {
-        var normalizedPem = removeEndings(encKey);
-        return Base64.getDecoder().decode(normalizedPem);
-    }
-
-
-    private String removeEndings(String key) {
-        key = key.replaceAll("-----BEGIN (.*)-----", "");
-        key = key.replaceAll("-----END (.*)----", "");
-        key = key.replaceAll("\r\n", "");
-        key = key.replaceAll("\n", "");
-        return key.trim();
-    }
 }

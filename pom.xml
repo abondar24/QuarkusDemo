@@ -13,7 +13,6 @@
         <surefire.version>3.0.0</surefire.version>
         <mongo.version>3.12.2</mongo.version>
         <testcontainer.version>1.13.0</testcontainer.version>
-        <jjwt.version>0.11.5</jjwt.version>
         <camel.quarkus.version>3.0.0-M1</camel.quarkus.version>
         <quarkus.mybatis.version>2.0.0</quarkus.mybatis.version>
     </properties>
@@ -89,6 +88,10 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-jwt-build</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
         <dependency>
@@ -99,23 +102,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt.version}</version>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
