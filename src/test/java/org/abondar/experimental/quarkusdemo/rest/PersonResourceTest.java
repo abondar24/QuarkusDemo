@@ -48,7 +48,7 @@ public class PersonResourceTest {
                 .get("/auth/7")
                 .asString();
 
-        authHeader = new Header("Authorization", "JWT Bearer " + token);
+        authHeader = new Header("Authorization", "Bearer " + token);
         userRole = new Header("Role","User");
     }
 

@@ -34,7 +34,7 @@ quarkus:
   native:
     resources:
       includes:
-        publicKey.pem
+        publicKey.pem,openapi.json
 
 smallrye:
     jwt:

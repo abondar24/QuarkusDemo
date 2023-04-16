@@ -32,7 +32,7 @@ public class SecurityInterceptor implements ContainerRequestFilter {
     public void filter(ContainerRequestContext containerRequestContext) throws SecurityException {
         String authHeaderName = "Authorization";
         String roleHeaderName = "Role";
-        String authHeader = "JWT Bearer ";
+        String authHeader = "Bearer ";
 
         var path = containerRequestContext.getUriInfo().getPath();
         var token = containerRequestContext.getHeaderString(authHeaderName);

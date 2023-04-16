@@ -22,8 +22,13 @@ or
 java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-Server is running on port 8020;
+## Access 
+
+Server is running on port 8020
+
 SwaggerUI: http://localhost:8020/q/swagger-ui
+Health: http://localhost:8020/q/health
+DEV Endpoint: http://localhost:8020/q/dev/
 
 ### Camel endpoints
 
@@ -39,7 +44,6 @@ Body:
 
 GET http://localhost:8020/job
 
-DEV Endpoint: http://localhost:8020/q/dev/
 
 # Ruuning profiles
 

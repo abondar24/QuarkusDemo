@@ -22,7 +22,6 @@ import java.time.Duration;
 
 @Path("/demo")
 public class DemoResource {
-//TODO The quarkus-resteasy-mutiny extension is deprecated. Switch to RESTEasy Reactive instead.
     @Inject
     ObjectMapper mapper;
 
@@ -49,22 +48,6 @@ public class DemoResource {
     public String hello(@PathParam("name") String name) throws Exception {
         return mapper.writeValueAsString(service.generateHello(name));
     }
-
-    @GET
-    @Path("/stream")
-    @Produces(MediaType.SERVER_SENT_EVENTS)
-    @SseElementType(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Stream of values returned every 3 seconds")
-    @APIResponse(description = "Generated string", responseCode = "200")
-    @PermitAll
-    public Multi<String> personStream() {
-        return Multi.createFrom()
-                .ticks()
-                .every(Duration.ofSeconds(3))
-                .onItem()
-                .transform(n -> "Stream response: " + n);
-    }
-
 
     @GET
     @Path("/vertx")
