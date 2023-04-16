@@ -19,7 +19,7 @@ or
 ```yaml
 ./mvnw clean install
 
-java -jar <path-to-jar>/qd-0.0.1.jar
+java -jar target/quarkus-app/quarkus-run.jar
 ```
 
 Server is running on port 8020;
@@ -46,3 +46,4 @@ DEV Endpoint: http://localhost:8020/q/dev/
 - Prod - need external stuff
 - Test - test containers are used
 - Dev - dev profile with dev tools enabled.
+ To active profile via cmd: run with -Dquarkus.profile=profile-name

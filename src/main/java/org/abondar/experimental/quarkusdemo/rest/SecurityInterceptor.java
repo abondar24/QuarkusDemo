@@ -24,25 +24,27 @@ import java.security.Principal;
 @PreMatching
 public class SecurityInterceptor implements ContainerRequestFilter {
 
-    private final String authHeaderName = "Authorization";
-
-    private final String roleHeaderName = "Role";
 
     @Inject
     TokenService tokenService;
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws SecurityException {
+        String authHeaderName = "Authorization";
+        String roleHeaderName = "Role";
+        String authHeader = "JWT Bearer ";
+
         var path = containerRequestContext.getUriInfo().getPath();
         var token = containerRequestContext.getHeaderString(authHeaderName);
         var method = containerRequestContext.getMethod();
         var role = containerRequestContext.getHeaders().getFirst(roleHeaderName);
+
         if (path.startsWith("/person") &&
                 (!method.equals("GET")) && (token == null || role==null)) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         } else if (token != null) {
             try {
-                var jwt = tokenService.parseToken(token.substring(4));
+                var jwt = tokenService.parseToken(token.substring(authHeader.length()));
                 if (!tokenService.validateToken(jwt)) {
                     containerRequestContext
                             .abortWith(Response
